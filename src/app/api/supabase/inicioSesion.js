@@ -21,12 +21,13 @@ export async function checkSession() {
     const { data, error } = await supabase.auth.getSession();
 
     if (error || !data?.session) {
-      return null;
+      return null; // No hay sesión activa, pero no mostramos el error
     }
 
     return data.session;
   } catch (err) {
-    return null;
+    console.error("Error checking session:", err); // Opcional: Log para depuración
+    return null; // No mostramos el error al usuario
   }
 }
 
@@ -124,3 +125,19 @@ export async function sendPasswordResetEmail(email) {
     return null;
   }
 }
+
+export const checkEmailInAdmins = async (email) => {
+  try {
+    const { data } = await supabase
+      .from('admins') 
+      .select('email, is_admin') 
+      .eq('email', email) 
+      .maybeSingle(); 
+
+    console.log("Admin check result:", data); // Depuración
+    return data && data.is_admin === true;
+  } catch (err) {
+    console.error("Error checking admin status:", err); // Depuración
+    return false;
+  }
+};

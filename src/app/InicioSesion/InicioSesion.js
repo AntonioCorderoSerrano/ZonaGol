@@ -12,30 +12,33 @@ export default function Inicio() {
 
   useEffect(() => {
     const checkActiveSession = async () => {
-      const session = await checkSession();
-      if (session) {
-        router.push('/Inicio'); // Redirige si hay sesión activa
-      } else {
-        
+      try {
+        const session = await checkSession();
+        if (session) {
+          router.push('/Inicio'); // Redirige si hay sesión activa
+        }
+      } catch (err) {
+        console.error("Error checking active session:", err); // Opcional: Log para depuración
       }
     };
-
+  
     checkActiveSession();
   }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const user = await signInSupabase(correo, password);
-
+  
       if (user) {
         router.push('/Inicio'); // Redirige si el inicio de sesión es exitoso
       } else {
-        setError('Usuario o contraseña incorrectos.');
+        setError('Usuario o contraseña incorrectos.'); // Mensaje genérico
       }
     } catch (err) {
-      setError(err.message); // Muestra el mensaje de error al usuario
+      console.error("Login error:", err); // Opcional: Log para depuración
+      setError('Ocurrió un error al iniciar sesión. Inténtalo de nuevo.'); // Mensaje genérico
     }
   };
 

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 export default function Home() {
   const [menuAbierto, setMenuAbierto] = useState(false);
 
@@ -85,7 +84,7 @@ export default function Home() {
 
           <div className="row mt-5">
             <div className="col-sm-6 col-md-4 mb-4">
-              <div className="card shadow-sm card shadow-sm"  style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/convocatorias_card.png" className="card-img-top rounded" alt="Convocatorias" />
                 <div className="card-body">
                   <h5 className="card-title">Convocatorias</h5>
@@ -96,7 +95,7 @@ export default function Home() {
             
 
             <div className="col-sm-6 col-md-4 mb-4">
-              <div className="card shadow-sm card shadow-sm"  style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/plantilla_card.png" className="card-img-top rounded" alt="Plantilla" />
                 <div className="card-body">
                   <h5 className="card-title">Plantilla</h5>
@@ -106,7 +105,7 @@ export default function Home() {
             </div>
 
             <div className="col-sm-6 col-md-4 mb-4">
-              <div className="card shadow-sm card shadow-sm"  style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/resultados_card.png" className="card-img-top rounded" alt="Resultados" />
                 <div className="card-body">
                   <h5 className="card-title">Resultados</h5>
@@ -116,7 +115,7 @@ export default function Home() {
             </div>
               
             <div className="col-sm-6 col-md-4 mt-4">
-              <div className="card shadow-sm card shadow-sm" style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/asistencias_card.png" className="card-img-top rounded" alt="Asistencia" />
                 <div className="card-body">
                   <h5 className="card-title">Asistencia</h5>
@@ -126,7 +125,7 @@ export default function Home() {
             </div>
 
             <div className="col-sm-6 col-md-4 mt-4">
-              <div className="card shadow-sm card shadow-sm"  style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/goleadores_card.png" className="card-img-top rounded" alt="Goleadores" />
                 <div className="card-body">
                   <h5 className="card-title">Goleadores</h5>
@@ -136,11 +135,81 @@ export default function Home() {
             </div>
 
             <div className="col-sm-6 col-md-4 mt-4">
-              <div className="card shadow-sm card shadow-sm"  style={{backgroundColor: 'rgba(255,237,215, 0.8)'}}>
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
                 <img src="/Fotos/imagenes_card.png" className="card-img-top rounded" alt="Imágenes" />
                 <div className="card-body">
                   <h5 className="card-title">Imágenes</h5>
                   <p className="card-text">Explora una galería con los mejores momentos de la temporada.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/estadisticas_card.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Estadísticas</h5>
+                  <p className="card-text">Accede a un análisis detallado del rendimiento del equipo con estadísticas de goles, asistencias y desempeño individual.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/scouting_card.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Scouting</h5>
+                  <p className="card-text">Realiza un análisis táctico de los equipos rivales para planificar estrategias y optimizar el rendimiento del equipo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/lesiones.webp" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Lesiones</h5>
+                  <p className="card-text">Lleva un control detallado de las lesiones del equipo y la evolución de cada jugador para optimizar su regreso al campo en las mejores condiciones.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/mensajeria.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Mensajería interna</h5>
+                  <p className="card-text">Envía y recibe mensajes internos de forma rápida y segura para mejorar la coordinación del equipo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/calendario_card.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Calendario</h5>
+                  <p className="card-text">Consulta y organiza los partidos, entrenamientos y eventos importantes del equipo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/nutricion.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Nutrición y Descanso</h5>
+                  <p className="card-text">Accede a recomendaciones sobre alimentación y hábitos de descanso para optimizar el rendimiento y la recuperación.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-6 col-md-4 mt-4">
+              <div className="card shadow-sm h-100 d-flex flex-column" style={{ backgroundColor: 'rgba(255,237,215, 0.8)', minHeight: '350px' }}>
+                <img src="/Fotos/entrenamientos.png" className="card-img-top rounded" alt="Asistencia" />
+                <div className="card-body">
+                  <h5 className="card-title">Entrenamientos</h5>
+                  <p className="card-text">Planifica las sesiones y realiza un seguimiento del progreso físico y táctico del equipo.</p>
                 </div>
               </div>
             </div>
@@ -166,6 +235,13 @@ export default function Home() {
           <p>&copy; 2025 ZonaGol. Todos los derechos reservados.</p>
         </footer>
       </div>
+      <style jsx>{`
+        .card-img-top {
+          width: 100%;
+          height: 300px; 
+          object-fit: cover; 
+        }
+    `}</style>
     </div>
   );
 }

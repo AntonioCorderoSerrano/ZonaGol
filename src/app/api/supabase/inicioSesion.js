@@ -1,19 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Configuración de Supabase
-const supabaseUrl = 'https://gpbejvkrtdlkpxarqnkc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwYmVqdmtydGRsa3B4YXJxbmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3NTczNTIsImV4cCI6MjA1MjMzMzM1Mn0.VO9XIzZDgA03_ZdGO4RWyG2yQKPOw0m2HvfyfBWAbh8';
-const supabase = createClient(
-  supabaseUrl,
-  supabaseKey,
-  {
-    auth: {
-      persistSession: true, // Persiste la sesión en el almacenamiento local
-      autoRefreshToken: true, // Habilita la renovación automática del token
-      detectSessionInUrl: false, // Evita manejar sesiones en URLs
-    },
-  }
-);
+import { supabase } from './supabaseClient';
 
 // Verifica si hay una sesión activa
 export async function checkSession() {
@@ -21,7 +6,7 @@ export async function checkSession() {
     const { data, error } = await supabase.auth.getSession();
 
     if (error || !data?.session) {
-      return null;
+      return null; // No hay sesión activa, pero no mostramos el error
     }
 
     return data.session;
@@ -124,3 +109,17 @@ export async function sendPasswordResetEmail(email) {
     return null;
   }
 }
+
+export const checkEmailInAdmins = async (email) => {
+  try {
+    const { data } = await supabase
+      .from('admins') 
+      .select('email, is_admin') 
+      .eq('email', email) 
+      .maybeSingle(); 
+
+    return data && data.is_admin === true;
+  } catch (err) {
+    return null;
+  }
+};

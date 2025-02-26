@@ -1,8 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://gpbejvkrtdlkpxarqnkc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwYmVqdmtydGRsa3B4YXJxbmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3NTczNTIsImV4cCI6MjA1MjMzMzM1Mn0.VO9XIzZDgA03_ZdGO4RWyG2yQKPOw0m2HvfyfBWAbh8';  // Asegúrate de reemplazarlo con tu API Key
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../supabase/supabaseClient';
 
 // Obtener todos los partidos
 export const getPartidos = async () => {
@@ -42,6 +38,8 @@ export const addPartido = async (partido, eventos) => {
       .select("id_partidos")
       .single();
 
+    if (insertError) throw insertError;
+
     const partidoId = partidoData.id_partidos;
 
     // Insertar los eventos (goles, tarjetas amarillas y rojas) en la tabla "golesporpartido"
@@ -74,15 +72,28 @@ export const addPartido = async (partido, eventos) => {
       ]);
 
       if (golesError) {
+        throw golesError;
       }
     });
 
     // Esperar a que todas las inserciones de eventos se completen
     await Promise.all(eventosUpdates);
 
+    // Actualizar los goles de los jugadores en la tabla "Goleadores"
+    const golesPorJugador = eventos.reduce((acc, evento) => {
+      acc[evento.nombre] = evento.goles;
+      return acc;
+    }, {});
+
+    const updateSuccess = await updateGoleadores(golesPorJugador);
+
+    if (!updateSuccess) {
+      throw new Error("Error al actualizar los goles de los jugadores.");
+    }
+
     return true;
   } catch (error) {
-    return false;
+    return null;
   }
 };
 
@@ -146,7 +157,6 @@ export const updateGoleadores = async (golesPorJugador) => {
     // Usamos un array de promesas para actualizar los goles de todos los jugadores de una sola vez
     const updates = Object.entries(golesPorJugador).map(async ([nombre, nuevosGoles]) => {
       if (nuevosGoles == null) {
-        console.warn(`Datos inválidos para nombre ${nombre}: ${nuevosGoles}`);
         return;
       }
 
@@ -169,13 +179,17 @@ export const updateGoleadores = async (golesPorJugador) => {
         .from('Goleadores')
         .update({ goles: golesTotales })
         .eq('nombre', nombre);
+
+      if (error) {
+        throw error;
+      }
     });
 
     // Esperamos que todas las actualizaciones se completen
     await Promise.all(updates);
     return true;
   } catch (error) {
-    return false;
+    return null;
   }
 };
 

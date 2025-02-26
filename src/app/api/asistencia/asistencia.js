@@ -1,8 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://gpbejvkrtdlkpxarqnkc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwYmVqdmtydGRsa3B4YXJxbmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3NTczNTIsImV4cCI6MjA1MjMzMzM1Mn0.VO9XIzZDgA03_ZdGO4RWyG2yQKPOw0m2HvfyfBWAbh8';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../supabase/supabaseClient';
 
 export const getUser = async () => {
   const { data, error } = await supabase.auth.getUser();
@@ -246,7 +242,6 @@ export const fetchJugadores = async () => {
 // Obtener el email del admin asociado al futbolista
 export const getAdminEmailByFutbolista = async (futbolista) => {
   try {
-    console.log('Consultando email para futbolista:', futbolista); // Verificación del futbolista
     const { data, error } = await supabase
       .from('admins')
       .select('email')
@@ -258,11 +253,9 @@ export const getAdminEmailByFutbolista = async (futbolista) => {
     }
 
     if (!data?.email) {
-      console.log('No se encontró el email para el futbolista:', futbolista);
       return { email: null };  // Si no se encuentra email, se maneja con null
     }
 
-    console.log('Email obtenido:', data?.email);
     return { email: data?.email };  // Retorna el email encontrado
   } catch (err) {
     return null

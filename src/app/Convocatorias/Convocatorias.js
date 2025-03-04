@@ -17,6 +17,8 @@ const Convocatorias = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [nuevoJugador, setNuevoJugador] = useState({ nombre: '', dorsal: '' });
   const [menuAbierto, setMenuAbierto] = useState(false);
   const menuRef = useRef(null);
   const [nuevoPartido, setNuevoPartido] = useState({
@@ -320,25 +322,7 @@ const Convocatorias = () => {
                 <li className="nav-item"><Link className="nav-link" href="../Asistencia">Asistencia</Link></li>
                 <li className="nav-item"><Link className="nav-link" href="../Plantilla">Plantilla</Link></li>
                 <li className="nav-item"><Link className="nav-link" href="../Galeria">Galería</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Mensajeria">Mensajería</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Calendario">Calendario</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Nutricion">Nutrición y Descanso</Link></li>
-                {isAdmin && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Estadisticas">Estadistícas</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Scouting">Scouting</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Lesiones">Lesiones</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Entrenamientos">Entrenamientos</Link>
-                    </li>
-                  </>
-                )} 
+                
                 {/* Botón de Cerrar Sesión dentro del mismo ul */}
                 <li className="nav-item">
                   <button className="btn btn-outline-light btn-tamano-uniforme" onClick={handleSignOut}>Cerrar Sesión</button>

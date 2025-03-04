@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getUser, signOut, checkEmailInAdmins } from "../api/supabase/inicioSesion"; // Importa la función de verificación
+import { getUser, signOut } from "../api/supabase/inicioSesion";
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -8,7 +8,6 @@ export default function Inicio() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false); // Estado para verificar si el usuario es administrador
 
   const handleLogout = async () => {
     await signOut();
@@ -28,52 +27,20 @@ export default function Inicio() {
 
   useEffect(() => {
     const verifyAuthentication = async () => {
-      try {
-        const user = await getUser();
-        if (!user) {
-          setIsAuthenticated(false);
-          router.push("/");
-        } else {
-          setIsAuthenticated(true);
-          // Verificar si el usuario es administrador
-          const adminStatus = await checkEmailInAdmins(user.email);
-          setIsAdmin(adminStatus);
-        }
-      } catch (error) {
-        console.error("Error verifying authentication:", error); // Depuración
+      const user = await getUser();
+      if (!user) {
         setIsAuthenticated(false);
         router.push("/");
+      } else {
+        setIsAuthenticated(true);
       }
     };
-  
+
     verifyAuthentication();
   }, [router]);
 
   if (!isAuthenticated) {
     return <div>Redirigiendo...</div>;
-  }
-
-  // Opciones del menú
-  const menuOptions = [
-    { href: "../Convocatorias", src: "/Fotos/Convocatorias.png", title: "Convocatorias" },
-    { href: "../Goleadores", src: "/Fotos/Goleadores.png", title: "Goleadores" },
-    { href: "../Partidos", src: "/Fotos/Partidos.png", title: "Partidos" },
-    { href: "../Asistencia", src: "/Fotos/Asistencia.png", title: "Asistencia" },
-    { href: "../Plantilla", src: "/Fotos/Plantilla.png", title: "Plantilla" },
-    { href: "../Galeria", src: "/Fotos/Imagenes.png", title: "Galería" },
-    { href: "../Mensajeria", src: "/Fotos/mensajeria_card.png", title: "Mensajería" },
-    { href: "../Calendario", src: "/Fotos/calendario.png", title: "Calendario" },
-    { href: "../Nutricion", src: "/Fotos/nutricion_card.jpg", title: "Nutrición y Descanso" },
-  ];
-
-  // Agregar opciones de administrador si el usuario es admin
-  if (isAdmin) {
-    menuOptions.push(
-      { href: "../Estadisticas", src: "/Fotos/estadisticas.png", title: "Estadisticas" },
-      { href: "../Scouting", src: "/Fotos/scouting.png", title: "Scouting Rival" },
-      { href: "../Lesiones", src: "/Fotos/lesiones_card.jpg", title: "Lesiones" },
-      { href: "../Entrenamientos", src: "/Fotos/entrenamientos_card.png", title: "Entrenamientos" },
-    );
   }
 
   return (
@@ -121,8 +88,15 @@ export default function Inicio() {
 
       {/* Contenido principal (grid de cards) */}
       <div className="container flex-grow-1 d-flex align-items-center justify-content-center mt-4 mb-4">
-        <div className="row g-5 justify-content-center">
-          {menuOptions.map((item, index) => (
+        <div className="row g-5 justify-content-center"> {/* Cambiado g-4 a g-5 para más espacio */}
+          {[ 
+            { href: "../Convocatorias", src: "/Fotos/Convocatorias.png", title: "Convocatorias" },
+            { href: "../Goleadores", src: "/Fotos/Goleadores.png", title: "Goleadores" },
+            { href: "../Partidos", src: "/Fotos/Partidos.png", title: "Partidos" },
+            { href: "../Asistencia", src: "/Fotos/Asistencia.png", title: "Asistencia" },
+            { href: "../Plantilla", src: "/Fotos/Plantilla.png", title: "Plantilla" },
+            { href: "../Galeria", src: "/Fotos/Imagenes.png", title: "Imágenes" }
+          ].map((item, index) => (
             <div key={index} className="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
               <Link href={item.href} className="text-decoration-none d-flex flex-grow-1">
                 <div className="card shadow-sm border-0 rounded-4 overflow-hidden hover-effect d-flex flex-column flex-grow-1" style={{ backgroundColor: 'rgba(255,237,215,0.8)', maxWidth: '100%', width: '100%' }}>
@@ -130,7 +104,6 @@ export default function Inicio() {
                     src={item.src}
                     className="card-img-top img-fluid"
                     alt={item.title}
-                    style={{ height: '250px', objectFit: 'cover' }} // Fijar la altura y mantener la relación de aspecto
                   />
                   <div className="card-body text-center d-flex flex-column flex-grow-1">
                     <h5 className="card-title">{item.title}</h5>
@@ -142,24 +115,24 @@ export default function Inicio() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="text-white text-center py-2" style={{ backgroundColor: 'rgba(70, 130, 180, 0)', zIndex: 2, marginTop: '40px' }}>
-        {/* Contenedor de iconos */}
-        <div className="mb-3 d-flex justify-content-center gap-4">
-          <a href="https://www.instagram.com/zonagol_intranet/" target="_blank" rel="noopener noreferrer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style={{ height: "40px" }} />
-          </a>
-          <a href="https://x.com/ZonaGolIntranet" target="_blank" rel="noopener noreferrer">
-            <img src="https://img.freepik.com/free-vector/twitter-new-2023-x-logo-white-background-vector_1017-45422.jpg" alt="X (Twitter)" style={{ height: "40px", borderRadius:'50%' }} />
-          </a>
-          <a href="https://www.facebook.com/zonagolintranet/" target="_blank" rel="noopener noreferrer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png" alt="Facebook" style={{ height: "40px" }} />
-          </a>
-        </div>
+        {/* Footer */}
+        <footer className="text-white text-center py-2" style={{ backgroundColor: 'rgba(70, 130, 180, 0)', zIndex: 2, marginTop: '40px' }}>
+          {/* Contenedor de iconos */}
+          <div className="mb-3 d-flex justify-content-center gap-4">
+            <a href="https://www.instagram.com/zonagol_intranet/" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style={{ height: "40px" }} />
+            </a>
+            <a href="https://x.com/ZonaGolIntranet" target="_blank" rel="noopener noreferrer">
+              <img src="https://img.freepik.com/free-vector/twitter-new-2023-x-logo-white-background-vector_1017-45422.jpg" alt="X (Twitter)" style={{ height: "40px", borderRadius:'50%' }} />
+            </a>
+            <a href="https://www.facebook.com/zonagolintranet/" target="_blank" rel="noopener noreferrer">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png" alt="Facebook" style={{ height: "40px" }} />
+            </a>
+          </div>
 
-        {/* Texto de derechos reservados */}
-        <p>&copy; 2025 ZonaGol. Todos los derechos reservados.</p>
-      </footer>
+          {/* Texto de derechos reservados */}
+          <p>&copy; 2025 ZonaGol. Todos los derechos reservados.</p>
+        </footer>
 
       {/* Estilos personalizados */}
       <style jsx>

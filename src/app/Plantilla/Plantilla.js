@@ -394,7 +394,6 @@ export default function Jugadores() {
     'Entrenador de Porteros',
     'Psicólogo de equipo',
     'Analista Táctico',
-    'Equipo médico'
   ];
 
   const toggleMenu = () => {
@@ -426,53 +425,38 @@ export default function Jugadores() {
   
       <header>
         <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: 'rgba(70, 130, 180, 0)', paddingLeft: '10px', paddingRight: '10px' }}>
-          <div className="container-fluid">
+          <div className="container-fluid d-flex justify-content-between align-items-center">
             <div className="me-auto">
               <Link className="nav-link" href="../Inicio">
                 <img src="/Fotos/ZonaGol.png" alt="ZonaGol"
                 className="img-fluid" style={{ height: "70px", maxWidth: "150px" }} />
               </Link>
             </div>
-            
-            {/* Botón de menú en móviles */}
             <button className="navbar-toggler" type="button" onClick={toggleMenu}>
               <span className="navbar-toggler-icon"></span>
             </button>
-
-            {/* Menú de navegación */}
             <div className={`collapse navbar-collapse ${menuAbierto ? "show" : ""}`} id="navbarNav">
-              <ul className="navbar-nav ms-auto d-flex align-items-center gap-3">  
-                <li className="nav-item"><Link className="nav-link" href="../Convocatorias">Convocatorias</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Goleadores">Goleadores</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Partidos">Partidos</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Asistencia">Asistencia</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Galeria">Galería</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Mensajeria">Mensajería</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Calendario">Calendario</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Nutricion">Nutrición y Descanso</Link></li>
-                {isAdmin && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Estadisticas">Estadistícas</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Scouting">Scouting</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Lesiones">Lesiones</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Entrenamientos">Entrenamientos</Link>
-                    </li>
-                  </>
-                )}                
-                {/* Botón de Cerrar Sesión */}
+              <ul className="navbar-nav ms-auto d-flex align-items-center">
                 <li className="nav-item">
-                  <button className="btn btn-outline-light px-3" onClick={handleLogout}>Cerrar Sesión</button>
+                  <Link className="nav-link" href="../Convocatorias">Convocatorias</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="../Goleadores">Goleadores</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="../Partidos">Partidos</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="../Asistencia">Asistencia</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" href="../Galeria">Galería</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-outline-light" onClick={handleLogout}>Cerrar Sesión</button>
                 </li>
               </ul>
             </div>
-
           </div>
         </nav>
       </header>

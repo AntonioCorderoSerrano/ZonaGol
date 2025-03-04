@@ -1,19 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Configuración de Supabase
-const supabaseUrl = 'https://gpbejvkrtdlkpxarqnkc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwYmVqdmtydGRsa3B4YXJxbmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3NTczNTIsImV4cCI6MjA1MjMzMzM1Mn0.VO9XIzZDgA03_ZdGO4RWyG2yQKPOw0m2HvfyfBWAbh8';
-const supabase = createClient(
-  supabaseUrl,
-  supabaseKey,
-  {
-    auth: {
-      persistSession: true, // Persiste la sesión en el almacenamiento local
-      autoRefreshToken: true, // Habilita la renovación automática del token
-      detectSessionInUrl: false, // Evita manejar sesiones en URLs
-    },
-  }
-);
+import { supabase } from './supabaseClient';
 
 // Verifica si hay una sesión activa
 export async function checkSession() {
@@ -26,8 +11,7 @@ export async function checkSession() {
 
     return data.session;
   } catch (err) {
-    console.error("Error checking session:", err); // Opcional: Log para depuración
-    return null; // No mostramos el error al usuario
+    return null;
   }
 }
 
@@ -134,10 +118,8 @@ export const checkEmailInAdmins = async (email) => {
       .eq('email', email) 
       .maybeSingle(); 
 
-    console.log("Admin check result:", data); // Depuración
     return data && data.is_admin === true;
   } catch (err) {
-    console.error("Error checking admin status:", err); // Depuración
-    return false;
+    return null;
   }
 };

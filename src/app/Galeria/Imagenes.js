@@ -206,25 +206,7 @@ export default function GaleriaImagenes() {
                 <li className="nav-item"><Link className="nav-link text-center" href="../Partidos">Partidos</Link></li>
                 <li className="nav-item"><Link className="nav-link text-center" href="../Asistencia">Asistencia</Link></li>
                 <li className="nav-item"><Link className="nav-link text-center" href="../Plantilla">Plantilla</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Mensajeria">Mensajería</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Calendario">Calendario</Link></li>
-                <li className="nav-item"><Link className="nav-link" href="../Nutricion">Nutrición y Descanso</Link></li>
-                {isAdmin && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Estadisticas">Estadistícas</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Scouting">Scouting</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Lesiones">Lesiones</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" href="../Entrenamientos">Entrenamientos</Link>
-                    </li>
-                  </>
-                )} 
+                
                 {/* Botón de Cerrar Sesión */}
                 <li className="nav-item">
                   <button className="btn btn-outline-light btn-tamano-uniforme" onClick={handleSignOut}>Cerrar Sesión</button>

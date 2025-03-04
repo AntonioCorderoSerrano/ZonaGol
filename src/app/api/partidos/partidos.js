@@ -1,8 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://gpbejvkrtdlkpxarqnkc.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdwYmVqdmtydGRsa3B4YXJxbmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY3NTczNTIsImV4cCI6MjA1MjMzMzM1Mn0.VO9XIzZDgA03_ZdGO4RWyG2yQKPOw0m2HvfyfBWAbh8';  // Asegúrate de reemplazarlo con tu API Key
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../supabase/supabaseClient';
 
 // Obtener todos los partidos
 export const getPartidos = async () => {
@@ -97,8 +93,7 @@ export const addPartido = async (partido, eventos) => {
 
     return true;
   } catch (error) {
-    console.error("Error en addPartido:", error);
-    return false;
+    return null;
   }
 };
 
@@ -162,7 +157,6 @@ export const updateGoleadores = async (golesPorJugador) => {
     // Usamos un array de promesas para actualizar los goles de todos los jugadores de una sola vez
     const updates = Object.entries(golesPorJugador).map(async ([nombre, nuevosGoles]) => {
       if (nuevosGoles == null) {
-        console.warn(`Datos inválidos para nombre ${nombre}: ${nuevosGoles}`);
         return;
       }
 
@@ -195,8 +189,7 @@ export const updateGoleadores = async (golesPorJugador) => {
     await Promise.all(updates);
     return true;
   } catch (error) {
-    console.error("Error en updateGoleadores:", error);
-    return false;
+    return null;
   }
 };
 
